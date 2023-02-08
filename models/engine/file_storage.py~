@@ -1,0 +1,36 @@
+#!/usr/bin/python33
+""" class FileStorage """
+import json
+from models.base_model import BaseModel
+
+
+class FileStorage:
+    """ serializes instances to a JSON file and deserializes JSON file to instances """
+
+    __file_path = "file.json"
+    __objects = {}
+
+    def all(self):
+        return FileStorage.__objects
+
+    def new(self, obj):
+        clname = obj.__class__.__name__
+        FileStorage.__objects["{}.{}".format(clname, obj.id)] = obj
+
+    def save(self):
+        obd = FileStorage.__objects
+        objd = {obj: obd[obj].to_dict() for obj in obd.keys()}
+        data = json.dump(objd)
+        with open('file.json', 'w') as f:
+            f.write(data)
+
+    def reload(self):
+        try:
+            with open(FileStorage.__file_path) as f:
+                objd = json.load(f)
+                for obj in objd.values():
+                    clname = obj['__class__']
+                    del obj['__class__']
+                    self.new(eval(clname)(**obj))
+        except FileNotFoundError:
+            return
