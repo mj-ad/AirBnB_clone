@@ -5,10 +5,11 @@ import sys
 from models.base_model import BaseModel
 from models import storage
 
+
 class HBNBCommand(cmd.Cmd):
     prompt = '(hbnb) '
     __classes = {'BaseModel'}
-    
+
     def do_quit(self, arg):
         """ to exit the program """
         sys.exit()
@@ -90,6 +91,7 @@ instances based or not on the class name')
     def do_EOF(self, line):
         """ to quit the program """
         return True
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
