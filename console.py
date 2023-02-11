@@ -22,7 +22,7 @@ class HBNBCommand(cmd.Cmd):
                  'Place',
                  'Review'
                  }
-    
+
     def do_quit(self, arg):
         """ to exit the program """
         sys.exit()
@@ -114,11 +114,12 @@ instances based or not on the class name')
         elif len(args) == 3:
             print('** value missing **')
         if '{}.{}'.format(args[0], args[1]) in obj:
-           pass 
+            pass
 
     def do_EOF(self, line):
         """ to quit the program """
         return True
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
