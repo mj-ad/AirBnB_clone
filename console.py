@@ -14,7 +14,8 @@ class HBNBCommand(cmd.Cmd):
                  'City',
                  'Amenity',
                  'Place',
-                 'Review'}
+                 'Review'
+                 }
 
     def do_quit(self, arg):
         """ to exit the program """
