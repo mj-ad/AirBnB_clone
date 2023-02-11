@@ -42,6 +42,5 @@ class BaseModel:
     def __str__(self):
         """ should print: [<class name>] (<self.id>) <self.__dict__> """
         self.id = str(uuid.uuid4())
-        self.created_at = datetime.now()
         name = self.__class__.__name__
         return '[{}] ({}) {}'.format(name, self.id, self.__dict__)

@@ -3,7 +3,14 @@
 import cmd
 import sys
 from models.base_model import BaseModel
+from models.user import User
 from models import storage
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
+
 
 
 class HBNBCommand(cmd.Cmd):
@@ -93,7 +100,22 @@ of an instance based on the class name and id')
 instances based or not on the class name')
 
     def do_update(self, line):
-        pass
+        args = line.split()
+        obj = storage.all()
+        if len(args) == 0:
+            print('** class name missing **')
+        elif args[0] not in HBNBCommand.__classes:
+            print("** class doesn't exist **")
+        elif len(args) == 1:
+            print('** instance id missing **')
+        elif '{}.{}'.format(args[0], args[1]) not in obj:
+            print('** no instance found **')
+        elif len(args) == 2:
+            print('** attribute name missing **')
+        elif len(args) == 3:
+            print('** value missing **')
+        if '{}.{}'.format(args[0], args[1]) in obj:
+            pass
 
     def do_EOF(self, line):
         """ to quit the program """
