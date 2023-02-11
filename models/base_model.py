@@ -10,6 +10,7 @@ class BaseModel:
     now = datetime.now()
 
     def __init__(self, *args, **kwargs):
+        """ initializes new base_model """
         self.id = str(uuid.uuid4())
         self.created_at = datetime.now()
         self.updated_at = datetime.now()
@@ -41,6 +42,5 @@ class BaseModel:
 
     def __str__(self):
         """ should print: [<class name>] (<self.id>) <self.__dict__> """
-        self.id = str(uuid.uuid4())
         name = self.__class__.__name__
         return '[{}] ({}) {}'.format(name, self.id, self.__dict__)
