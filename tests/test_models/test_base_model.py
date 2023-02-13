@@ -23,6 +23,7 @@ class Test_Base_Model_Declarations(unittest.TestCase):
     def test_updated_time(self):
         self.assertNotEqual(datetime.now(), BaseModel().updated_at)
 
+
 class Test_Use_of_kwargs(unittest.TestCase):
     """ testing the use kwargs """
     def test_use_of_kwargs(self):
@@ -43,5 +44,6 @@ class Test_Use_of_kwargs(unittest.TestCase):
         b2 = BaseModel(**b1_json)
         self.assertEqual(b2.id, b1.id)
 
-if __name__ =='__main__':
+
+if __name__ == '__main__':
     unittest.main()
