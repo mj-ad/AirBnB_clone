@@ -23,6 +23,10 @@ class HBNBCommand(cmd.Cmd):
                  'Review'
                  }
 
+    def emptyline(self):
+        """ Do nothing """
+        pass
+
     def do_quit(self, arg):
         """ to exit the program """
         sys.exit()
