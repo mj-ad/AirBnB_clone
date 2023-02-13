@@ -104,21 +104,45 @@ instances based or not on the class name')
 
     def do_update(self, line):
         args = line.split()
-        obj = storage.all()
+        objdict = storage.all()
         if len(args) == 0:
             print('** class name missing **')
-        elif args[0] not in HBNBCommand.__classes:
+            return False
+        if args[0] not in HBNBCommand.__classes:
             print("** class doesn't exist **")
-        elif len(args) == 1:
+            return False
+        if len(args) == 1:
             print('** instance id missing **')
-        elif '{}.{}'.format(args[0], args[1]) not in obj:
+            return False
+        if '{}.{}'.format(args[0], args[1]) not in objdict.keys():
             print('** no instance found **')
-        elif len(args) == 2:
+            return False
+        if len(args) == 2:
             print('** attribute name missing **')
-        elif len(args) == 3:
-            print('** value missing **')
-        if '{}.{}'.format(args[0], args[1]) in obj:
-            pass
+            return False
+        if len(args) == 3:
+            try:
+                type(eval(argl[2])) != dict
+            except NameError:
+                print("** value missing **")
+                return False
+        if len(argl) == 4:
+            obj = objdict["{}.{}".format(argl[0], argl[1])]
+            if argl[2] in obj.__class__.__dict__.keys():
+                valtype = type(obj.__class__.__dict__[argl[2]])
+                obj.__dict__[argl[2]] = valtype(argl[3])
+            else:
+                obj.__dict__[argl[2]] = argl[3]
+        elif type(eval(argl[2])) == dict:
+            obj = objdict["{}.{}".format(argl[0], argl[1])]
+            for k, v in eval(argl[2]).items():
+                if (k in obj.__class__.__dict__.keys() and\
+                    type(obj.__class__.__dict__[k]) in {str, int, float}):
+                    valtype = type(obj.__class__.__dict__[k])
+                    obj.__dict__[k] = valtype(v)
+                else:
+                    obj.__dict__[k] = v
+        storage.save()
 
     def do_EOF(self, line):
         """ to quit the program """
